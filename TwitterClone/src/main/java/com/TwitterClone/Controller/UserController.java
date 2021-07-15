@@ -4,7 +4,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -12,15 +16,24 @@ import com.TwitterClone.Repository.UserRepository;
 import com.TwitterClone.Model.User;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
 public class UserController {
 	
 	@Autowired
 	UserRepository userRepo  ;
 	
-	public ResponseEntity<User> create(){
-		User user = userRepo.findById(1) ;
-		return  new ResponseEntity<User>(user , HttpStatus.OK);
+	@PostMapping("/create")
+	@ResponseBody
+	public User create(User user){
+		userRepo.save(user);
+		return user;
+	}
+	
+	@GetMapping("/{id}")
+	@ResponseBody
+	public User show(@PathVariable int id) {
+		User user = userRepo.findById(id);
+		return user;
 	}
 
 }

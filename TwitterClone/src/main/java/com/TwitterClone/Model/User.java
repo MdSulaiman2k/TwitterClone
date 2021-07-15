@@ -12,8 +12,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Setter
-@Getter
 public @Data class User {
 	
 	@Id

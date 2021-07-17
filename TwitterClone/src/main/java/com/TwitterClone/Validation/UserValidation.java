@@ -3,10 +3,12 @@ package com.TwitterClone.Validation;
 import javax.xml.bind.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.TwitterClone.Model.User;
 import com.TwitterClone.Service.UserService;
 
+@Component
 public class UserValidation {
 	
 	public void validateEmail(String email) throws ValidationException {

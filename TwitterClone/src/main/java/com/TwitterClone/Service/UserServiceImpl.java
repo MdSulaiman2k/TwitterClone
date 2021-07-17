@@ -19,49 +19,30 @@ public class UserServiceImpl implements UserService {
 	UserRepository usersRepo ;
 
 	@Override
-	public List<User> FindAllUser() {
+	public List<User> findAllUser() {
 		return usersRepo.findAll() ;
 	}
 	
 	@Override
-	public Hashtable<String, String>  FindByUserID(long id) {
-		User user =  usersRepo.findById(id) ;
-		return getUserHash(user) ;
+	public User findByUserID(long id){
+		return usersRepo.findById(id) ;
 	}
 	
 
 	@Override 
-	public User FindEmail(String email) {
+	public User findEmail(String email) {
 		return usersRepo.findByEmail(email);
 	}
 	
-	public Hashtable<String, String> getUserHash(User user){
-		Hashtable<String, String> hash = new Hashtable<String, String>();
-		 hash.put("id", String.valueOf(user.getId())) ;
-		 hash.put("email", String.valueOf(user.getEmail())) ;
-		 return hash;
-	}
-	
-	public List getUsersHash(List<User> users) {
-		List arrayList = new ArrayList() ;
-		for(User user : users ) {
-			 Hashtable<String, String> hash = getUserHash(user) ;
-			 arrayList.add(hash) ;
-		}
-		return arrayList;
-	}
-	
-	
 	
 	@Override
-	public List FindAllUsersEmail() {
-		List<User> users = FindAllUser() ;
-		return getUsersHash(users) ;
+	public List findAllUsersEmail() {
+		return findAllUser() ;
 	}
 	
 	@Override
 	public User create(User user)  throws ValidationException {
-		User user1 = FindEmail(user.getEmail()) ;
+		User user1 = findEmail(user.getEmail()) ;
 		if(user1 != null)
 			throw new ValidationException("email is taken");
 		return usersRepo.save(user) ;

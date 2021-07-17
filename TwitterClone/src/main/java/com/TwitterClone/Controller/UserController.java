@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.TwitterClone.Service.UserService;
 import com.TwitterClone.Validation.UserValidation;
+import com.TwitterClone.mapper.UserMapperImpl;
+import com.TwitterClone.Dto.UserDto;
 import com.TwitterClone.Model.User;
 
 @RestController
@@ -30,8 +32,11 @@ public class UserController {
 	@Autowired
 	UserService userservice ;
 	
-	UserValidation  uservalidate = new UserValidation() ;
+	@Autowired
+	UserValidation  uservalidate ;
 	
+	@Autowired
+	UserMapperImpl userMapper ;
 	
 	@PostMapping("/create")
 	public ResponseEntity<String> createUser(@Valid  User user){
@@ -45,17 +50,22 @@ public class UserController {
 	}
 	
 	@GetMapping("/{id}")
-	public Hashtable<String , String> show(@PathVariable long id) {
-		return userservice.FindByUserID(id);
+	public ResponseEntity<UserDto> show(@PathVariable long id) {
+		
+		if(userservice.findByUserID(id) == null) {
+			return new ResponseEntity<UserDto>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<UserDto>(userMapper.UserToUserDto(userservice.findByUserID(id)), HttpStatus.OK );
 	}
 	
 	@GetMapping("/")
-	public ResponseEntity<List> getalluser(){
+	public ResponseEntity<List<UserDto>> getalluser(){
 		try {
-		List users = userservice.FindAllUsersEmail() ;
-		return new ResponseEntity<List>(users , HttpStatus.OK) ;
+		List users = userservice.findAllUsersEmail() ;
+		return new ResponseEntity<List<UserDto>>(userMapper.UserToUserDto(users) , HttpStatus.OK) ;
 		}catch(Exception err) {
-			return  new ResponseEntity<List>(new ArrayList(), HttpStatus.NOT_ACCEPTABLE);	
+			return  new ResponseEntity<List<UserDto>>(HttpStatus.NOT_ACCEPTABLE);	
 		}
 	}
 

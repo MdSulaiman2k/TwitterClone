@@ -12,14 +12,14 @@ import com.TwitterClone.Model.User;
 @Component
 public interface UserService {
 	
-	List<User> FindAllUser() ;
+	List<User> findAllUser() ;
 
 	User create(User user) throws ValidationException;
 
-	User FindEmail(String email) ;
+	User findEmail(String email) ;
 
-	List FindAllUsersEmail();
+	List findAllUsersEmail();
 
-	Hashtable<String, String> FindByUserID(long id);
+	User findByUserID(long id);
 
 }

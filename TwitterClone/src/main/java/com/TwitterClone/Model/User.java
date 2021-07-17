@@ -23,4 +23,6 @@ public @Data class User {
 	@Size(min = 8 , max = 15,  message = "field size must be between 8 to 15" )
 	@Column(nullable = false, length = 16)
 	private String password ;
+	
+	
 }

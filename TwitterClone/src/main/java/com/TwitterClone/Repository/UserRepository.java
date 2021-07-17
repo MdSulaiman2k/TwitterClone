@@ -1,5 +1,7 @@
 package com.TwitterClone.Repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -7,6 +9,7 @@ import com.TwitterClone.Model.User;
 
 @Repository
 public interface UserRepository  extends JpaRepository<User, Long > {
+	User findByEmail(String email);
 	
-	public User findById(long id) ;
+	User findById(long id) ;
 }

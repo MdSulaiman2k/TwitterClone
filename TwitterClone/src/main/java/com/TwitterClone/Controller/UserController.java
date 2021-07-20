@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.TwitterClone.Service.UserService;
 import com.TwitterClone.Validation.UserValidation;
-import com.TwitterClone.mapper.UserMapperImpl;
+import com.TwitterClone.mapper.UserMapper;
 import com.TwitterClone.Dto.UserDto;
 import com.TwitterClone.Model.User;
 
@@ -36,9 +36,9 @@ public class UserController {
 	UserValidation  uservalidate ;
 	
 	@Autowired
-	UserMapperImpl userMapper ;
+	UserMapper userMapper ;
 	
-	@PostMapping("/create")
+	@PostMapping
 	public ResponseEntity<String> createUser(@Valid  User user){
 		try {
 			uservalidate.validateUser(user) ;
@@ -59,7 +59,7 @@ public class UserController {
 		return new ResponseEntity<UserDto>(userMapper.UserToUserDto(userservice.findByUserID(id)), HttpStatus.OK );
 	}
 	
-	@GetMapping("/")
+	@GetMapping
 	public ResponseEntity<List<UserDto>> getalluser(){
 		try {
 		List users = userservice.findAllUsersEmail() ;

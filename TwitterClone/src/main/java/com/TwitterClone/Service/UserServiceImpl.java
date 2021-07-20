@@ -1,7 +1,5 @@
 package com.TwitterClone.Service;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 import javax.xml.bind.ValidationException;
@@ -36,7 +34,7 @@ public class UserServiceImpl implements UserService {
 	
 	
 	@Override
-	public List findAllUsersEmail() {
+	public List<User> findAllUsersEmail() {
 		return findAllUser() ;
 	}
 	

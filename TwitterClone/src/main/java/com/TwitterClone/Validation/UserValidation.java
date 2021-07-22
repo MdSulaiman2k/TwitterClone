@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.TwitterClone.Model.User;
 
 @Component
-public class UserValidation  {
+public class UserValidation {
 	
 	public void validateEmail(String email) throws ValidationException {
 		if(email == null) 

@@ -11,11 +11,11 @@ public class PostValidation {
 	
 	public void validateDescription(String desc)throws ValidationException {
 		if(desc == null) 
-			throw new ValidationException("Description is null") ;
+			throw new ValidationException("Content is null") ;
 	}
 	
 	public void validatePost(Post post) throws ValidationException {
-		validateDescription(post.getDescription()) ;
+		validateDescription(post.getContent()) ;
 	}
 
 }

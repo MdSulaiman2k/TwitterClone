@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.TwitterClone.Dto.PostDto;
+import com.TwitterClone.Dto.PostReqDto;
 import com.TwitterClone.Model.Post;
 import com.TwitterClone.Service.PostService;
-import com.TwitterClone.Validation.PostValidation;
 import com.TwitterClone.mapper.PostMapper;
 
 @RestController
-@RequestMapping("api/users/{userId}/post")
+@RequestMapping("api/posts")
 public class PostController {
 	
 	@Autowired
@@ -32,19 +32,16 @@ public class PostController {
 	
 	@GetMapping
 	@ResponseBody
-	public List<PostDto> allPost(@PathVariable long  userId ) {
-		List<Post> posts = postService.findAllPostByUserId(userId) ;
-		if(posts == null )
-			throw new ResponseStatusException(
-				  HttpStatus.NOT_FOUND, "Posts Not Found");
-		
+	public List<PostDto> allPost(){
+		List<Post> posts = postService.findAllPost() ;
 		return postMapper.PostToPostDto(posts) ;  	
 	}
 	
+	
 	@GetMapping("/{id}")
 	@ResponseBody
-	public PostDto getPost(@PathVariable long  userId , @PathVariable long  id  ) {	
-		Post post = postService.FindPost(id , userId) ;
+	public PostDto getPost( @PathVariable long  id  ) {	
+		Post post = postService.findPost(id) ;
 		if(post == null) 
 			throw new ResponseStatusException(
 					  HttpStatus.NOT_FOUND, "Post Not Found");
@@ -54,8 +51,8 @@ public class PostController {
 	
 	@PostMapping
 	@ResponseBody
-	public PostDto setPost(Post post, @PathVariable long  userId) throws ValidationException {
-		post = postService.createPost(post, userId) ;
+	public PostDto setPost(PostReqDto postReqDto) throws ValidationException {
+		Post post = postService.createPost(postReqDto ) ;
 		return postMapper.PostToPostDto(post) ;
 	}
 	

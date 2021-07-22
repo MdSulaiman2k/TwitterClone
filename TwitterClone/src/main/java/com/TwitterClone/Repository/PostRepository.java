@@ -6,10 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.TwitterClone.Model.Post;
+import com.TwitterClone.Model.User;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 	  
-	List<Post> findByUserId(long user_id) ;
+	List<Post> findByUser(User user) ;
 	
 	Post findById(long id) ;
 	

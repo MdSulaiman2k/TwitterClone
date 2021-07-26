@@ -1,50 +1,47 @@
 package com.TwitterClone;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.List;
 
 import javax.xml.bind.ValidationException;
 
 import org.junit.Test;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.TwitterClone.Service.UserService;
-import com.TwitterClone.Repository.UserRepository;
 import com.TwitterClone.Model.User;
+import com.TwitterClone.Repository.UserRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@TestMethodOrder(OrderAnnotation.class)
 public class UserServiceTests {
 
+
 	@Autowired
-	private UserService userService;
-
-	@MockBean
 	private UserRepository userRepo;
-
+	
 	@Test
-	public void getUsersTest() {
-		when(userRepo.findAll()).thenReturn(Stream
-				.of(new User(1, "sulaiman", "s32@gmail.com", "sulaiman"), new User(2, "sulaiman", "s31@gmail.com", "sulaiman")).collect(Collectors.toList()));
-		assertEquals(2, userService.findAllUsersEmail().size());
-	}
-
-
-
-	@Test
+	@Order(1)
 	public void saveUserTest() throws ValidationException {
-		User user = new User(1, "sulaiman", "s32@gmail.com", "sulaiman");
-		when(userRepo.save(user)).thenReturn(user);
-		assertEquals(user, userService.create(user));
+		User user = new User(0, "sulaiman", "s32@gmail.com", "sulaiman");
+		userRepo.save(user) ;
+		assertNotNull(userRepo.findByEmail("s32@gmail.com"));
 	}
 
+	@Test
+	@Order(2)
+	public void getUsersTest() {
+		List<User> listUser = userRepo.findAll() ;
+		assertThat(listUser).size().isGreaterThan(0);	
+	}
+
+	
 }

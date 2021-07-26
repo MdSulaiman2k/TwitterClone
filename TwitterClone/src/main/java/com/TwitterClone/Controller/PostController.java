@@ -41,19 +41,30 @@ public class PostController {
 	@GetMapping("/{id}")
 	@ResponseBody
 	public PostDto getPost( @PathVariable long  id  ) {	
+		try {
 		Post post = postService.findPost(id) ;
 		if(post == null) 
 			throw new ResponseStatusException(
 					  HttpStatus.NOT_FOUND, "Post Not Found");
 		
 		return postMapper.PostToPostDto(post) ;
+		}catch(Exception err) {
+			throw new ResponseStatusException(
+					  HttpStatus.NOT_FOUND, err.getMessage());
+		}
 	}
 	
 	@PostMapping
 	@ResponseBody
 	public PostDto setPost(PostReqDto postReqDto) throws ValidationException {
+		try {
 		Post post = postService.createPost(postReqDto ) ;
 		return postMapper.PostToPostDto(post) ;
+		}catch(Exception err) {
+			throw new ResponseStatusException(
+					  HttpStatus.NOT_FOUND, err.getMessage());
+		}
+		
 	}
 	
 	

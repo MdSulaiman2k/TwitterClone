@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -18,7 +19,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Post {
+@EqualsAndHashCode(callSuper = true)
+public class Post extends BaseEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,6 +35,11 @@ public class Post {
 	
 	public long getUserId() {
 		return user.getId() ;
+	}
+	
+	public Post(String description ,   User user){
+		this.content = description ;
+		this.user  = user ;
 	}
 	
 	

@@ -46,7 +46,7 @@ public class UserController {
 	PostMapperImpl postMapper ;
 	
 	
-	@PostMapping("/create")
+	@PostMapping
 	public ResponseEntity<String> createUser(@Valid  User user){
 		try {
 			uservalidate.validateUser(user) ;

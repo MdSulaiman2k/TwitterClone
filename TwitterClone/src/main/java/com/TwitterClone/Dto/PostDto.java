@@ -9,15 +9,15 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class PostDto {
 	
-	 @JsonProperty("id")
-	 private long id ;
-	 
-	 @JsonProperty("name")
-	 private String name ;
-	 
-	 @JsonProperty("email")
-	 private String email;
-	 	  
+	@JsonProperty("id")
+	private long id ;
+	
+	@JsonProperty("user_id")
+	private long user_id ;
+	
+	@JsonProperty("content")
+	private String content ;
+		
 }

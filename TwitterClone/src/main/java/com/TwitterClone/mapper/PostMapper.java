@@ -13,9 +13,9 @@ public interface PostMapper {
 
 	PostMapper INSTANCE = Mappers.getMapper(PostMapper.class);
 	
-	PostDto PostToPostDto(Post post) ;
+	PostDto postToPostDto(Post post) ;
 
-	List<PostDto>   PostToPostDto(List<Post> post) ;
+	List<PostDto>   postToPostDto(List<Post> post) ;
 	
 	
 	

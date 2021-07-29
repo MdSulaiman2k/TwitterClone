@@ -16,5 +16,5 @@ public class PostReqDto {
 	
 	private String  content ;
 	
-	private long userId ;
+	private String userId ;
 }

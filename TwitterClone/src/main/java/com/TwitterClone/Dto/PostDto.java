@@ -11,12 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PostDto {
 	
-	@JsonProperty("id")
-	private long id ;
-	
-	@JsonProperty("user_id")
-	private long user_id ;
-	
 	@JsonProperty("content")
 	private String content ;
 		

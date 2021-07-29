@@ -4,7 +4,7 @@ import javax.xml.bind.ValidationException;
 
 import org.springframework.stereotype.Component;
 
-import com.TwitterClone.Model.User;
+import com.TwitterClone.Dto.Request.UserRequestDto;
 
 @Component
 public class UserValidation {
@@ -30,7 +30,7 @@ public class UserValidation {
 		
 	}
 	
-	public void validateUser(User user) throws ValidationException{
+	public void validateUser(UserRequestDto user) throws ValidationException{
 		validateName(user.getName()) ;
 		validateEmail(user.getEmail());
 		validatePassword(user.getPassword()) ;

@@ -25,12 +25,19 @@ public  class User extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private  long id ;
+	
+	@Column(nullable = false)
 	private String  name ;
+	
+	@Column(unique=true, nullable = false, updatable = false)
+	private String userToken ;
+	
 	@Column(unique=true, nullable= false)
 	private String  email;
-	@Size(min = 8 , max = 15,  message = "field size must be between 8 to 15" )
-	@Column(nullable = false, length = 16)
+	
+	@Column(nullable = false)
 	private String password ;
+	
 	
 	public User(long user_id) {
 		id = user_id ;

@@ -14,6 +14,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.TwitterClone.Dto.Request.UserRequestDto;
 import com.TwitterClone.Model.User;
 import com.TwitterClone.Repository.UserRepository;
 import com.TwitterClone.Service.UserService;
@@ -32,7 +33,7 @@ public class UserServiceTests {
 	@Test
 	@Order(2)
 	public void saveUserTest() throws ValidationException {
-		User user = new User(0, "sulaiman", "s32@gmail.com", "sulaiman");
+		UserRequestDto user = new UserRequestDto("sulaiman", "s32@gmail.com", "sulaiman");
 		userService.create(user) ;
 		assertNotNull(userService.findEmail("s32@gmail.com"));
 	}

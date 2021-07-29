@@ -12,23 +12,23 @@ import com.TwitterClone.Model.Post;
 public class PostMapperImpl  implements PostMapper{
 
 	@Override
-	public PostDto PostToPostDto(Post post) {
+	public PostDto postToPostDto(Post post) {
 		if(post == null)
 			return  null ;
 		
-		PostDto postDto = new PostDto(post.getId() ,post.getUserId() ,post.getContent()) ;
+		PostDto postDto = new PostDto(post.getContent()) ;
 		return postDto ;
 		
 	}
 
 	@Override
-	public List<PostDto> PostToPostDto(List<Post> posts) {
+	public List<PostDto> postToPostDto(List<Post> posts) {
 		if(posts == null)
 			return  null ;
 		List<PostDto> postsDto = new ArrayList<>() ;
 		
 		for(Post post : posts) {
-			PostDto postDto = new PostDto(post.getId(), post.getUserId(),post.getContent()) ;
+			PostDto postDto = new PostDto(post.getContent()) ;
 			postsDto.add(postDto) ;
 		}
 		return postsDto ;

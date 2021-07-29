@@ -42,8 +42,9 @@ public class PostService {
 	}
 	
 	public Post createPost(PostReqDto postReqDto)  throws ValidationException {
-		if(userRepo.findById(postReqDto.getUserId()) != null) {
-			Post post = new Post( postReqDto.getContent() ,new User(postReqDto.getUserId())  );
+		User user = userRepo.findByUserToken(postReqDto.getUserId()) ;
+		if( user != null) {
+			Post post = new Post( postReqDto.getContent() ,new User(user.getId())  );
 			post = postRepo.save(post);
 			return post ;
 		}

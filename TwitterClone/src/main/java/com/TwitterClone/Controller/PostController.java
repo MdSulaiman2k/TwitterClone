@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +35,7 @@ public class PostController {
 	@ResponseBody
 	public List<PostDto> allPost(){
 		List<Post> posts = postService.findAllPost() ;
-		return postMapper.PostToPostDto(posts) ;  	
+		return postMapper.postToPostDto(posts) ;  	
 	}
 	
 	
@@ -47,7 +48,7 @@ public class PostController {
 			throw new ResponseStatusException(
 					  HttpStatus.NOT_FOUND, "Post Not Found");
 		
-		return postMapper.PostToPostDto(post) ;
+		return postMapper.postToPostDto(post) ;
 		}catch(Exception err) {
 			throw new ResponseStatusException(
 					  HttpStatus.NOT_FOUND, err.getMessage());
@@ -56,14 +57,15 @@ public class PostController {
 	
 	@PostMapping
 	@ResponseBody
-	public PostDto setPost(PostReqDto postReqDto) throws ValidationException {
+	public PostDto setPost(@RequestBody PostReqDto postReqDto) throws ValidationException {
 		try {
 		Post post = postService.createPost(postReqDto ) ;
-		return postMapper.PostToPostDto(post) ;
+		return postMapper.postToPostDto(post) ;
 		}catch(Exception err) {
 			throw new ResponseStatusException(
 					  HttpStatus.NOT_FOUND, err.getMessage());
 		}
+		
 		
 	}
 	

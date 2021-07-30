@@ -28,7 +28,7 @@ public class PostServiceTest {
 	@Test
 	@Order(1)
 	public void savePostTest() throws ValidationException {
-		PostReqDto postReq = new PostReqDto("Texting post" , 1);
+		PostReqDto postReq = new PostReqDto("Texting post" , "1");
 		Post post = postService.createPost(postReq) ;
 		assertNotNull(postService.findPost(post.getId()));
 	}

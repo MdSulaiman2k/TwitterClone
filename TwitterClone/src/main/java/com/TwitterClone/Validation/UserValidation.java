@@ -5,32 +5,33 @@ import javax.xml.bind.ValidationException;
 import org.springframework.stereotype.Component;
 
 import com.TwitterClone.Dto.Request.UserRequestDto;
+import com.TwitterClone.Excepton.CreationException;
 
 @Component
 public class UserValidation {
 	
-	public void validateEmail(String email) throws ValidationException {
+	public void validateEmail(String email) {
 		if(email == null) 
-			throw new ValidationException("email is null");
+			throw new CreationException("406", "Not Acceptable", "email is null");
 		else if( !email.contains("@"))
-			throw new ValidationException("email must contain @sign");
+			throw new CreationException("406", "Not Acceptable","email must contain @sign");
 		
 	}
 	
-	public void validateName(String name) throws ValidationException{
+	public void validateName(String name) {
 		if(name == null) 
-			throw new ValidationException("name is null");
+			throw new CreationException("406", "Not Acceptable","name is null");
 		else if(name.length() <= 1) 
-			throw new ValidationException("name should be more than one");
+			throw new CreationException("406", "Not Acceptable","name should be more than one");
 	}
 	
-	public void validatePassword(String password) throws ValidationException{
+	public void validatePassword(String password){
 		if(password.length() < 8 || password.length() > 16  ) 
-			throw new ValidationException("password  8 to 16 characters only allowed") ;
+			throw new CreationException("406", "Not Acceptable","password  8 to 16 characters only allowed") ;
 		
 	}
 	
-	public void validateUser(UserRequestDto user) throws ValidationException{
+	public void validateUser(UserRequestDto user){
 		validateName(user.getName()) ;
 		validateEmail(user.getEmail());
 		validatePassword(user.getPassword()) ;

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -37,8 +38,9 @@ public class PostController {
 	
 	@GetMapping
 	@ResponseBody
-	public List<PostDto> allPost(){
-		List<Post> posts = postService.findAllPost() ;
+	public List<PostDto> allPost(@RequestParam(value = "page" , defaultValue = "1") int page , 
+			@RequestParam(value = "limit" , defaultValue = "3") int limit) {
+		List<Post> posts = postService.findAllPost(page , limit) ;
 		return postMapper.postToPostDto(posts) ;  	
 	}
 	

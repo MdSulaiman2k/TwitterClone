@@ -16,7 +16,7 @@ public class PostMapperImpl  implements PostMapper{
 		if(post == null)
 			return  null ;
 		
-		PostDto postDto = new PostDto(post.getContent()) ;
+		PostDto postDto = new PostDto( post.getId() , post.getContent()) ;
 		return postDto ;
 		
 	}
@@ -28,7 +28,7 @@ public class PostMapperImpl  implements PostMapper{
 		List<PostDto> postsDto = new ArrayList<>() ;
 		
 		for(Post post : posts) {
-			PostDto postDto = new PostDto(post.getContent()) ;
+			PostDto postDto = new PostDto(post.getId() , post.getContent()) ;
 			postsDto.add(postDto) ;
 		}
 		return postsDto ;

@@ -2,10 +2,20 @@ package com.TwitterClone.Excepton;
 
 import org.springframework.stereotype.Component;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 @Component
-public class UnAutherizedException extends RuntimeException {
-
-	private static final long serialVersionUID = 1L;
+@Data
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+public class UnAutherizedException extends CustormizeException {
 	
-
+	public UnAutherizedException(String code ,  String status ,  String message) {
+	    super(code , status , message) ;
+	}
+     
 }

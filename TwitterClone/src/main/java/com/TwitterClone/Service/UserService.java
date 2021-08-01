@@ -2,10 +2,11 @@ package com.TwitterClone.Service;
 
 import java.util.List;
 
-import javax.xml.bind.ValidationException;
-
 import org.springframework.stereotype.Component;
 
+import com.TwitterClone.Dto.PostDto;
+import com.TwitterClone.Dto.UserDto;
+import com.TwitterClone.Dto.UserTokenDto;
 import com.TwitterClone.Dto.Request.UserRequestDto;
 import com.TwitterClone.Model.User;
 
@@ -14,14 +15,18 @@ public interface UserService {
 	
 	List<User> findAllUser() ;
 
-	User create(UserRequestDto userReq) throws ValidationException;
+	UserTokenDto create(UserRequestDto userReq) ;
 
 	User findEmail(String email) ;
 
-	List<User> findAllUsersEmail();
+	List<UserDto> findAllUsersEmail();
 
-	User findByUserID(long id);
+	UserDto findByUserID(long id);
 
 	User findByUserToken(String token);
+	
+	List<PostDto> findUserPosts(long id) ;
+	
+	UserDto editUser(UserDto userDto , String user_id) ;
 
 }

@@ -2,8 +2,6 @@ package com.TwitterClone.Dto;
 
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonSetter;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,9 +10,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostReqDto {
-	
-	private String  content ;
-	
-	private long userId ;
+public class UserTokenDto {
+      private String UserToken ;
 }

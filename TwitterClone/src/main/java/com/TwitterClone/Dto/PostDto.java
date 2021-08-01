@@ -11,6 +11,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PostDto {
 	
+	@JsonProperty("ID")
+	private long Id ;
+	
 	@JsonProperty("content")
 	private String content ;
 		

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.xml.bind.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.TwitterClone.Dto.PostReqDto;
@@ -67,6 +68,7 @@ public class PostService {
 		return postResponseDto ;
 	}
 	
+	@Async
 	public void deleteAllPost(String userToken){
 		userToken = userToken.split(" ")[1] ; 
 		User user = userRepo.findByUserToken(userToken);

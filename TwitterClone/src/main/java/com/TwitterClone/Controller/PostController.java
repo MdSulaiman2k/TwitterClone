@@ -79,7 +79,7 @@ public class PostController {
 	@DeleteMapping("/all")
 	public ResponseEntity<String>   deleteAllPost(@RequestHeader("Authorization") String userToken) {
 		 postService.deleteAllPost(userToken) ;
-		 return new ResponseEntity<String>("Deleted" , HttpStatus.ACCEPTED) ;
+		 return new ResponseEntity<String>("Deleted " + Thread.currentThread().getName() , HttpStatus.ACCEPTED) ;
 	}
 	
 	

@@ -3,6 +3,8 @@ package com.TwitterClone.Service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.TwitterClone.Dto.PostDto;
@@ -43,8 +45,9 @@ public class UserServiceImpl implements UserService {
 	UserTokenDto userTokenDto ;
 
 	@Override
-	public List<User> findAllUser() {
-		return usersRepo.findAll() ;
+	public List<User> findAllUser(int page , int limit) {
+		Pageable pageRequest = PageRequest.of(page, limit) ;
+		return usersRepo.findAll(pageRequest).getContent() ;
 	}
 	
 	@Override
@@ -65,8 +68,9 @@ public class UserServiceImpl implements UserService {
 	
 	
 	@Override
-	public List<UserDto> findAllUsersEmail() {
-		List<UserDto> userDto = userMapper.userToUserDto(findAllUser()) ;
+	public List<UserDto> findAllUsersEmail(int page , int limit ) {
+		page =  page > 0 ? --page : 0 ;
+		List<UserDto> userDto = userMapper.userToUserDto(findAllUser(page , limit)) ;
 		return userDto ;
 	}
 	

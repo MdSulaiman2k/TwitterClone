@@ -13,13 +13,13 @@ import com.TwitterClone.Model.User;
 @Component
 public interface UserService {
 	
-	List<User> findAllUser() ;
+	List<User> findAllUser(int page , int limit) ;
 
 	UserTokenDto create(UserRequestDto userReq) ;
 
 	User findEmail(String email) ;
 
-	List<UserDto> findAllUsersEmail();
+	List<UserDto> findAllUsersEmail(int page , int limit);
 
 	UserDto findByUserID(long id);
 

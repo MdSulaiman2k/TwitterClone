@@ -5,6 +5,9 @@ import java.util.List;
 import javax.xml.bind.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.TwitterClone.Dto.PostReqDto;
@@ -35,8 +38,10 @@ public class PostService {
 		return postRepo.findByUser(user) ;
 	}
 	
-	public List<Post> findAllPost(){
-		return postRepo.findAll() ;
+	public List<Post> findAllPost(int page , int limit ){
+		page =  page > 0 ? --page : 0 ;
+		Pageable pageRequest =  PageRequest.of(page, limit) ;
+		return postRepo.findAll(pageRequest).getContent() ;
 	}
 	
 	public Post findPost(long id) {
@@ -67,6 +72,7 @@ public class PostService {
 		return postResponseDto ;
 	}
 	
+	@Async
 	public void deleteAllPost(String userToken){
 		userToken = userToken.split(" ")[1] ; 
 		User user = userRepo.findByUserToken(userToken);

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -58,8 +59,9 @@ public class UserController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<UserDto>> getalluser(){
-		return new ResponseEntity<List<UserDto>>( userservice.findAllUsersEmail() , HttpStatus.OK) ;
+	public ResponseEntity<List<UserDto>> getalluser(@RequestParam(value = "page" , defaultValue = "1") int page , 
+			@RequestParam(value = "limit" , defaultValue = "3") int limit ){
+		return new ResponseEntity<List<UserDto>>( userservice.findAllUsersEmail(page , limit ) , HttpStatus.OK) ;
 	}
 	
 	@PutMapping

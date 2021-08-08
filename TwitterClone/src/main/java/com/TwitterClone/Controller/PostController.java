@@ -5,6 +5,8 @@ import java.util.List;
 import javax.xml.bind.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,7 +42,9 @@ public class PostController {
 	@ResponseBody
 	public List<PostDto> allPost(@RequestParam(value = "page" , defaultValue = "1") int page , 
 			@RequestParam(value = "limit" , defaultValue = "3") int limit) {
-		List<Post> posts = postService.findAllPost(page , limit) ;
+		page =  page > 0 ? --page : 0 ;
+		Pageable pageRequest =  PageRequest.of(page, limit) ;
+		List<Post> posts = postService.findAllPost(pageRequest) ;
 		return postMapper.postToPostDto(posts) ;  	
 	}
 	

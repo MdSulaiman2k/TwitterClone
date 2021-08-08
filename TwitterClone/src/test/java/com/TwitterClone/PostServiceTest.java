@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import com.TwitterClone.Dto.PostReqDto;
 import com.TwitterClone.Model.Post;
@@ -28,7 +30,7 @@ public class PostServiceTest {
 	@Test
 	@Order(1)
 	public void savePostTest() throws ValidationException {
-		PostReqDto postReq = new PostReqDto("Texting post" , "1");
+		PostReqDto postReq = new PostReqDto("Texting post" , 1);
 		Post post = postService.createPost(postReq) ;
 		assertNotNull(postService.findPost(post.getId()));
 	}
@@ -36,7 +38,8 @@ public class PostServiceTest {
 	@Test
 	@Order(2)
 	public void readPostTest() throws ValidationException {
-		List<Post> postList = postService.findAllPost() ;
+		Pageable page = PageRequest.of(0, 5) ;
+		List<Post> postList = postService.findAllPost(page) ;
 		assertThat(postList).size().isGreaterThan(0);	
 	}
 	

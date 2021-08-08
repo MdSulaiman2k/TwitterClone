@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import com.TwitterClone.Dto.Request.UserRequestDto;
 import com.TwitterClone.Model.User;
@@ -41,7 +43,8 @@ public class UserServiceTests {
 	@Test
 	@Order(3)
 	public void getUsersTest() {
-		List<User> listUser = userService.findAllUser() ;
+		Pageable page = PageRequest.of(0, 5) ;
+		List<User> listUser = userService.findAllUser(page ) ;
 		assertThat(listUser).size().isGreaterThan(0);	
 	}
 	

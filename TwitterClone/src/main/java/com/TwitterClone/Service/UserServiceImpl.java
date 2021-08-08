@@ -1,10 +1,13 @@
 package com.TwitterClone.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.TwitterClone.Dto.PostDto;
@@ -43,10 +46,12 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	UserTokenDto userTokenDto ;
+	
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncode ;
 
 	@Override
-	public List<User> findAllUser(int page , int limit) {
-		Pageable pageRequest = PageRequest.of(page, limit) ;
+	public List<User> findAllUser(Pageable pageRequest) {
 		return usersRepo.findAll(pageRequest).getContent() ;
 	}
 	
@@ -68,9 +73,8 @@ public class UserServiceImpl implements UserService {
 	
 	
 	@Override
-	public List<UserDto> findAllUsersEmail(int page , int limit ) {
-		page =  page > 0 ? --page : 0 ;
-		List<UserDto> userDto = userMapper.userToUserDto(findAllUser(page , limit)) ;
+	public List<UserDto> findAllUsersEmail(Pageable pageRequest ) {
+		List<UserDto> userDto = userMapper.userToUserDto(findAllUser(pageRequest)) ;
 		return userDto ;
 	}
 	
@@ -80,6 +84,7 @@ public class UserServiceImpl implements UserService {
 		if(user1 != null)
 			throw new CreationException("406", "Not Acceptable", "email is taken");
 		userValidaton.validateUser(userReq) ;
+		userReq.setPassword(bCryptPasswordEncode.encode(userReq.getPassword()));
 		User user = userMapper.userRequestDtotoUser(userReq) ;
 		String userToken = "" ;
 		do {
@@ -112,6 +117,15 @@ public class UserServiceImpl implements UserService {
 		user.setName(userDto.getName());
 		usersRepo.save(user) ;
 		return userDto;
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		User user = usersRepo.findByEmail(email) ;
+		if(user == null)
+			throw new UsernameNotFoundException(email) ;
+		
+		return new org.springframework.security.core.userdetails.User(user.getEmail() , user.getPassword() , new ArrayList<>());
 	}
 	
 }

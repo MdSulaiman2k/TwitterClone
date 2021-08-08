@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -61,7 +63,8 @@ public class UserController {
 	@GetMapping
 	public ResponseEntity<List<UserDto>> getalluser(@RequestParam(value = "page" , defaultValue = "1") int page , 
 			@RequestParam(value = "limit" , defaultValue = "3") int limit ){
-		return new ResponseEntity<List<UserDto>>( userservice.findAllUsersEmail(page , limit ) , HttpStatus.OK) ;
+		Pageable pageRequest =  PageRequest.of(page, limit) ;
+		return new ResponseEntity<List<UserDto>>( userservice.findAllUsersEmail(pageRequest ) , HttpStatus.OK) ;
 	}
 	
 	@PutMapping

@@ -38,9 +38,7 @@ public class PostService {
 		return postRepo.findByUser(user) ;
 	}
 	
-	public List<Post> findAllPost(int page , int limit ){
-		page =  page > 0 ? --page : 0 ;
-		Pageable pageRequest =  PageRequest.of(page, limit) ;
+	public List<Post> findAllPost(Pageable pageRequest ){
 		return postRepo.findAll(pageRequest).getContent() ;
 	}
 	
